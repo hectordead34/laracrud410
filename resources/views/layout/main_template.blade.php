@@ -9,8 +9,7 @@
 
 
 <body style="background-color:  rgb(255,210,180)">    
-    
-    @yield('content')
     @include('fragments.navbar')
+    @yield('content')
 </body>
 </html>
