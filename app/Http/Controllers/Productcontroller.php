@@ -13,8 +13,8 @@ class Productcontroller extends Controller
      */
     public function index()
     {
-
-     return view('products_index');
+        $products = Product::get();
+        return view('products_index', compact('products'));
  
     }
 
@@ -34,9 +34,10 @@ class Productcontroller extends Controller
      */
     public function store(Request $request)
     {
-        echo "Store Productos";
+       //  echo "Registro realizado";
        // dd($request);
        Product::create($request->all());
+       return to_route('products.index')->with('status', 'producto registrado');
 
     }
 
@@ -45,7 +46,8 @@ class Productcontroller extends Controller
      */
     public function show(Product $product)
     {
-        echo "Show Productos";
+       
+        return view('products_show',compact('product'));
     }
 
     /**
