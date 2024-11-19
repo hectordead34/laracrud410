@@ -14,7 +14,7 @@ class Productcontroller extends Controller
     public function index()
     {
         $products = Product::get();
-        return view('products_index', compact('products'));
+        return view('admin/products/index', compact('products'));
  
     }
 
@@ -26,7 +26,7 @@ class Productcontroller extends Controller
         // $brands = Brand::get(); para obtener todos los datoa o modelos
         $brands=Brand::pluck('id','brand');// obtener datos especificos
    //     dd( vars: $brands);//verificar que los datoa se esten extrayendo
-        return view('products_create', compact('brands'));
+        return view('admin/products/create', compact('brands'));
     }
 
     /**
@@ -47,15 +47,21 @@ class Productcontroller extends Controller
     public function show(Product $product)
     {
        
-        return view('products_show',compact('product'));
+        return view('admin/products/show',compact('product'));
+        
     }
+    
+    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Product $product)
     {
-        echo "Edit Productos";
+        $brands=Brand::pluck('id','brand');// obtener datos especificos
+        echo view('admin/products/edit', compact('brands','product'));
+        
+
     }
 
     /**
@@ -63,7 +69,9 @@ class Productcontroller extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        echo "Update Productos";
+       $product->update($request -> all());
+        return to_route('products.index')->with('status', 'producto actualizado');
+
     }
 
     /**
@@ -71,6 +79,13 @@ class Productcontroller extends Controller
      */
     public function destroy(Product $product)
     {
-        echo "Destroy Productos";
+        $product->delete();
+        return to_route('products.index')->with('status', 'Producto eliminado');
+    }
+
+    public function delete(Product $product){
+
+      echo view('admin/products/delete', compact('product'));
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Brandcontroller;
 use App\Http\Controllers\Productcontroller;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +45,7 @@ Route::delete('/destroyProducts /{product}',[App\Http\Controllers\ProductControl
 */
 
 Route::resource('/products',App\Http\Controllers\ProductController::class);
-
+/*
 Route::get('/clients', function () {
     return view('clients_index');
 }) -> name('clients');
@@ -53,5 +54,13 @@ Route::get('/clients', function () {
 Route::get('/sales', function () {
     return view('sales_index');
 }) -> name('sales');
+*/
+
+Route::resource('/brands',App\Http\Controllers\Brandcontroller::class);
+
+Route::get('/produts/{product}/delete',
+[App\Http\Controllers\ProductController::class,'delete'])->name('products.delete');
 
 
+Route::resource('/clients',App\Http\Controllers\ClientController::class);
+Route::resource('/sales',App\Http\Controllers\SaleController::class);
